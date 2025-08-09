@@ -1,0 +1,41 @@
+# Insecure Default Same - Password in H3C Magic M Series Devices (M2V100R006)
+## Overview
+An insecure default same - password vulnerability was identified in H3C devices running firmware version M2V100R006. The root, useradmin, telecomadmin, and nobody user accounts use the same password as their respective usernames (i.e., the username and password are identical). These four passwords are stored in the world - readable file /etc/shadow using MD5 - crypt hashing. They can be easily decrypted by tools like John the Ripper and exploited, for example, to gain unauthorized root access to the device through network - accessible services or the administrative interface.
+
+## Vulnerability Details
++ **Vulnerability Type**: Insecure Default Credentials (Same Username and Password)
++ **Affected Product**: H3C Devices
++ **Affected Version**: M2V100R006
++ **Attack Type**: Remote
++ **Attack Vector**: Unauthorized login using default credentials (root with password “root”, useradmin with password “useradmin”, telecomadmin with password “telecomadmin”, nobody with password “nobody”) via network - accessible services or administrative interface
++ **Impact**:
+    - Escalation of Privileges
+    - Information Disclosure
+    - Potential Code Execution
++ **Affected Component**: File, user authentication mechanism (/etc/shadow)
++ **CVE ID**: Pending (CVE application in progress)
++ **Discovered by**: xxricardoxkk (xxricardoxkk@gmail.com)
++ **Firmware**: [https://www.h3c.com/cn/d_201802/1061800_30005_0.htm](https://www.h3c.com/cn/d_201802/1061800_30005_0.htm)
+
+## Discovery
+The vulnerability was discovered by analyzing the firmware (M2V100R006.bin). The file was extracted from the squashfs - root directory. It was revealed that the MD5 - crypt hashes of the root, useradmin, telecomadmin, and nobody users were cracked using John the Ripper, yielding that the usernames and passwords are identical. These weak credentials allow attackers to log in to the device’s administrative interface or other services without additional exploits.
+
+## Steps to Reproduce
+1. Extract the firmware image M2V100R006.bin.
+2. Locate the file in the extracted squashfs - root directory: squashfs - root/etc/shadow.
+3. Use a password - cracking tool (e.g., John) to crack the MD5 - crypt hashes of these four users:
+    - root:root:13399:0:99999:7:::
+    - useradmin:useradmin:13621:0:99999:7:::
+    - telecomadmin:telecomadmin:13621:0:99999:7:::
+    - nobody:nobody:16907:0:99999:7:::
+![](https://github.com/XXRicardo/iot-cve/blob/main/H3C/image/M2V100R006-1.png)
+
+![](https://github.com/XXRicardo/iot-cve/blob/main/H3C/image/M2V100R006-2.png)  
+4. Attempt to log in to the device’s administrative interface or other network - accessible services using the cracked passwords.
+
+## Impact
+Attackers with network access to the device can:
+
++ Gain full administrative control by logging in with the root account (password: “root”) or the useradmin account (password: “useradmin”).
++ Access sensitive configuration data, potentially exposing network details, modify device settings, or execute arbitrary code, leading to further network breaches.
+
