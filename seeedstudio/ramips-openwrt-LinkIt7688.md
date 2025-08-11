@@ -1,6 +1,6 @@
 # Insecure same - Password in seeedstudio ReSpeaker Core - Based On MT7688 Smart Speaker
 ## Overview
-An insecure same - password vulnerability was identified in the seeedstudio ReSpeaker Core - Based On MT7688 smart speaker running the firmware version ramips - openwrt - latest - LinkIt7688 - squashfs - sysupgrade. The root user account uses a weak password (cracked as “root” using the John tool). This password is stored in the world - readable file /etc/shadow using MD5 - crypt hashing. It can be easily decrypted by the John tool and exploited. For example, attackers can gain unauthorized root access to the device through network - accessible services or the administrative interface.
+An insecure same - password vulnerability was identified in the seeedstudio ReSpeaker Core - Based On MT7688 smart speaker running the firmware version ramips - openwrt - latest - LinkIt7688 - squashfs - sysupgrade. The root user account uses a weak password (cracked as “root” using the John tool). This password is stored in the file /etc/shadow using MD5 - crypt hashing. It can be easily decrypted by the John tool and exploited. For example, attackers can gain unauthorized root access to the device through network - accessible services or the administrative interface.
 
 ## Vulnerability Details
 + **Vulnerability Type**: Insecure Default Password
