@@ -24,7 +24,8 @@ The vulnerability was discovered by analyzing the firmware (ramips - openwrt - l
 1. Extract the firmware image ramips - openwrt - latest - LinkIt7688 - squashfs - sysupgrade.bin.
 2. Locate the file in the extracted squashfs - root directory: squashfs - root/etc/shadow.
 3. Use a password - cracking tool (e.g., John) to crack the MD5 - crypt hash of this user:
-    - root:root:17120:0:99999:7:::
+    - root:root:17120:0:99999:7:::\
+![](https://github.com/XXRicardo/iot-cve/edit/main/seeedstudio/image/linkit7688_1.png)
 4. Attempt to log in to the device's administrative interface or other network - accessible services using the cracked password.
 
 ## Impact
