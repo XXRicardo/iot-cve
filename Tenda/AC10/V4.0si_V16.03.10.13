@@ -1,0 +1,38 @@
+# Insecure Password in Tenda Wi-Fi 5 Router AC10 Device (AC10V4.0si_V16.03.10.13)
+## Overview
+An insecure password vulnerability was identified in the Tenda Wi-Fi 5 Router AC10 device running firmware version AC10V4.0si_V16.03.10.13. The root user account uses a weak password (cracked as "Fireitup" using the John tool). This password is stored in the file /etc_ro/shadow using MD5-crypt hashing, which can be easily decrypted by tools like John and exploited. For instance, it allows unauthorized root access to the device through network-accessible services or the administrative interface.
+
+## Vulnerability Details
++ **Vendor**: Tenda
++ **Vulnerability Type**: Insecure Default Password
++ **Affected Product**: Tenda Wi-Fi 5 Router AC10 Device
++ **Affected Version**: AC10V4.0si_V16.03.10.13
++ **Attack Type**: Remote
++ **Attack Vector**: Unauthorized login using the default password (root:Fireitup) via network-accessible services or the administrative interface
++ **Impact**:
+    - Privilege Escalation
+    - Information Disclosure
+    - Potential Code Execution
++ **Affected Component**: File, user authentication mechanism (/etc_ro/shadow)
++ **CVE ID**: Pending (CVE application in progress)
++ **Discovered by**: xxricardoxkk (xxricardoxkk@gmail.com)
++ **Firmware**: [https://www.tenda.com.cn/material/show/3506](https://www.tenda.com.cn/material/show/3506)
+
+## Discovery
+The vulnerability was discovered by analyzing the firmware (US_AC10V4.0si_V16.03.10.13_cn_TDC01.bin). The file was extracted from the squashfs-root directory, and the MD5-crypt hash of the root user's password was cracked using John, resulting in the password "Fireitup". The cracked password allows attackers to log in to the router's system with root privileges.
+
+## Steps to Reproduce
+1. Extract the firmware image US_AC10V4.0si_V16.03.10.13_cn_TDC01.bin.
+2. Locate the file in the extracted squashfs-root directory: squashfs-root/etc_ro/shadow.
+3. Use a password-cracking tool (e.g., John) to crack the MD5-crypt hash of this user:
+    - root:Fireitup:14319::::::
+
+![]()
+
+4. Attempt to log in to the device's administrative interface or other network-accessible services using the cracked password.
+
+## Impact
+Attackers with network access to the device can:
+
++ Gain full administrative control by logging in with the root account (password: "Fireitup").
++ Access sensitive configuration data, potentially exposing network details, modify device settings, or execute arbitrary code, leading to further network breaches.
