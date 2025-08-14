@@ -50,6 +50,8 @@ def send_payload(url, payload):
     params = {'mac': payload}
     response = requests.get(url, params=params)
     response = requests.get(url, params=params)
+    response = requests.get(url, params=params)
+    response = requests.get(url, params=params)
     print("Response status code:", response.status_code)
     print("Response body:", response.text)
 
