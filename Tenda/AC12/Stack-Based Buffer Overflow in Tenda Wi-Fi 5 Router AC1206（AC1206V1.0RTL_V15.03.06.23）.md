@@ -1,6 +1,6 @@
 # Stack-Based Buffer Overflow in Tenda Wi-Fi 5 Router AC1206 (AC1206V1.0RTL_V15.03.06.23)
 ## Overview
-A stack-based buffer overflow vulnerability exists in the Tenda Wi-Fi 5 Router AC12 device running firmware version AC1206V1.0RTL_V15.03.06.23. Due to the lack of restrictions on certain parameters and the absence of boundary checks in the `GetParentControlInfo` function, a stack overflow may occur. Unauthenticated remote attackers can execute a Denial of Service (DoS) attack through parameters in this endpoint.`/goform/GetParentControlInfo``initWebs``formDefineTendDa`
+A stack-based buffer overflow vulnerability exists in the Tenda Wi-Fi 5 Router AC12 device running firmware version AC1206V1.0RTL_V15.03.06.23. Due to the lack of restrictions on certain parameters and the absence of boundary checks in the `GetParentControlInfo` function, a stack overflow may occur. Unauthenticated remote attackers can execute a Denial of Service (DoS) attack through parameters in this endpoint.`/goform/GetParentControlInfo`, `initWebs`, `formDefineTendDa`
 
 ## Vulnerability Details
 + **Vendor**: Shenzhen Jixiang Tenda Technology Co., Ltd.
