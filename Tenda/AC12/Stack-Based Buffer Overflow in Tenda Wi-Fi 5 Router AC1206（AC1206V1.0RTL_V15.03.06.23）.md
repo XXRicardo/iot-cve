@@ -19,7 +19,15 @@ A stack-based buffer overflow vulnerability exists in the Tenda Wi-Fi 5 Router A
 The vulnerability was discovered by analyzing the firmware (US_AC1206V1.0RTL_V15.03.06.23_multi_TD01.bin). The following call chain exists in the `squashfs-root/bin/httpd` file:  
 `main → initWebs → formDefineTendDa → GetParentControlInfo`
 
+![](https://github.com/XXRicardo/iot-cve/blob/main/Tenda/AC12/image/%E8%B0%83%E7%94%A8%E9%93%BE4.png)
+![](https://github.com/XXRicardo/iot-cve/blob/main/Tenda/AC12/image/%E8%B0%83%E7%94%A8%E9%93%BE3.png)
+![](https://github.com/XXRicardo/iot-cve/blob/main/Tenda/AC12/image/%E8%B0%83%E7%94%A8%E9%93%BE2.png)
+![](https://github.com/XXRicardo/iot-cve/blob/main/Tenda/AC12/image/formdefinetenda.png)
+![](https://github.com/XXRicardo/iot-cve/blob/main/Tenda/AC12/image/%E8%B0%83%E7%94%A8%E9%93%BE1.png)
+
 The program retrieves the user input parameter "mac". The `strcpy` function in the figure below copies content from `mac_addr` to `pc_info->mac_addr` without checking the size of the target buffer. `pc_info = (parent_control_info *)malloc(0x254u);` where 0x254 is 596 bytes. If the length of `mac_addr` exceeds the buffer of `pc_info->mac_addr`, an overflow will occur.
+
+![](https://github.com/XXRicardo/iot-cve/blob/main/Tenda/AC12/image/%E6%BA%A2%E5%87%BA%E7%82%B9.png)
 
 Therefore, a carefully designed payload at the interface path `/goform/GetParentControlInfo` can cause a buffer overflow.
 
