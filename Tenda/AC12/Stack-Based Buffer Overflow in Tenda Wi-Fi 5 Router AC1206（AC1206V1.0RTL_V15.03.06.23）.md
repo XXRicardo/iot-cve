@@ -64,9 +64,16 @@ if __name__ == "__main__":
 
 Use QEMU to emulate the `httpd` extracted from `US_AC1206V1.0RTL_V15.03.06.23_multi_TD01.bin` (note that this file is for the MIPS little-endian architecture, and IDA needs to be used to modify `httpd` to adapt to the emulation environment).
 
+![](https://github.com/XXRicardo/iot-cve/blob/main/Tenda/AC12/image/mips%E5%B0%8F%E7%AB%AF%E4%BF%AE%E6%94%B9.png)
+
+
 As shown in the figure below, the emulation is successful.
 
+![](https://github.com/XXRicardo/iot-cve/blob/main/Tenda/AC12/image/payload%26%E4%BB%BF%E7%9C%9F.png)
+
 Use this script to trigger the stack overflow.
+
+![](https://github.com/XXRicardo/iot-cve/blob/main/Tenda/AC12/image/%E8%BF%90%E8%A1%8C%E8%84%9A%E6%9C%AC%E8%A7%A6%E5%8F%91%E6%A0%88%E6%BA%A2%E5%87%BA.png)
 
 ## Impact
 Unauthenticated remote attackers can execute a Denial of Service (DoS) attack through parameters in this endpoint.
