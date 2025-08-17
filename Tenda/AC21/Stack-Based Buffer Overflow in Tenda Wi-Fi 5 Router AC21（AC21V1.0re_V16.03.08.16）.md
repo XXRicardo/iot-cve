@@ -1,6 +1,6 @@
 # Stack-Based Buffer Overflow in Tenda Wi-Fi 5 Router AC21（AC21V1.0re_V16.03.08.16）
 ## Overview
-There is a stack-based buffer overflow vulnerability in the Tenda Wi-Fi 5 Router AC21 device running the firmware version AC21V1.0re_V16.03.08.16. Due to the lack of restrictions on certain parameters in the GetParentControlInfo function and the absence of boundary checks, a stack overflow may occur. Unauthenticated remote attackers can execute a Denial of Service (DoS) attack through the parameters in this endpoint: /goform/GetParentControlInfosub_433BE4formDefineTendDa.
+There is a stack-based buffer overflow vulnerability in the Tenda Wi-Fi 5 Router AC21 device running the firmware version AC21V1.0re_V16.03.08.16. Due to the lack of restrictions on certain parameters in the GetParentControlInfo function and the absence of boundary checks, a stack overflow may occur. Unauthenticated remote attackers can execute a Denial of Service (DoS) attack through the parameters in this endpoint: `/goform/GetParentControlInfo`、`sub_433BE4`、`formDefineTendDa`
 
 ## Vulnerability Details
 + **Vendor**: Shenzhen Jixiang Tenda Technology Co., Ltd. ([https://www.tenda.com.cn](https://www.tenda.com.cn))
