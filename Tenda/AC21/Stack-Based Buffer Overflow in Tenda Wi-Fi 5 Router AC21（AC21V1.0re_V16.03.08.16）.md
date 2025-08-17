@@ -19,7 +19,15 @@ There is a stack-based buffer overflow vulnerability in the Tenda Wi-Fi 5 Router
 This vulnerability was discovered by analyzing the firmware (US_AC21V1.0re_V16.03.08.16_cn_TDC01.bin). The following call chain exists in the squashfs-root/bin/httpd file:  
 main → sub_433BE4 → formDefineTendDa → GetParentControlInfo
 
+![](https://github.com/XXRicardo/iot-cve/blob/main/Tenda/AC21/image/main%E8%B0%83%E7%94%A8.png)
+
+![](https://github.com/XXRicardo/iot-cve/blob/main/Tenda/AC21/image/formDefineTenda1.png)
+
+![](https://github.com/XXRicardo/iot-cve/blob/main/Tenda/AC21/image/formDefineTenda2.png)
+
 s is a buffer allocated via malloc(0x254u), with a size of 0x254 bytes and initialized to all 0s. The target address is s + 2, meaning data copying starts from the 3rd byte of s, and the remaining available space is 604 - 2 = 602 bytes. Var is the external input obtained via websGetVar(a1, "mac", &unk_4D999C) (it is the value of the user-controllable "mac" parameter). strcpy will continuously copy characters from Var until encountering \0, without verifying at all whether the target buffer can accommodate all the data. As external input, the length of Var may exceed 602 bytes.
+
+![](https://github.com/XXRicardo/iot-cve/blob/main/Tenda/AC21/image/%E6%BA%A2%E5%87%BA%E7%82%B9.png)
 
 Therefore, carefully designing a payload at the interface path /goform/GetParentControlInfo can cause a buffer overflow.
 
@@ -58,9 +66,15 @@ if __name__ == "__main__":
 
 Use qemu to emulate the httpd extracted from US_AC21V1.0re_V16.03.08.16_cn_TDC01.bin (note that this file is for the mips little-endian architecture, and IDA needs to be used to modify httpd to adapt to the emulation environment).
 
+![](https://github.com/XXRicardo/iot-cve/blob/main/Tenda/AC21/image/patch.png)
+
 As shown in the figure below, the emulation is successful.
 
+![](https://github.com/XXRicardo/iot-cve/blob/main/Tenda/AC21/image/payload%24%E4%BB%BF%E7%9C%9F.png)
+
 Use this script to trigger the stack overflow.
+
+![](https://github.com/XXRicardo/iot-cve/blob/main/Tenda/AC21/image/%E8%A7%A6%E5%8F%91.png)
 
 #### Impact
 Unauthenticated remote attackers can execute a Denial of Service (DoS) attack through the parameters in this endpoint. 
