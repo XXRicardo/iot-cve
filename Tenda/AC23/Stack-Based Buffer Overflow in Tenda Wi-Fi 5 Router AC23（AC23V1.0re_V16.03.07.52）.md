@@ -19,7 +19,15 @@ A stack-based buffer overflow vulnerability exists in the Tenda Wi-Fi 5 Router A
 This vulnerability was discovered by analyzing the firmware (US_AC23V1.0re_V16.03.07.52_cn_TDC01.bin). The following call chain exists in the `squashfs-root/bin/httpd` file:  
 `main → sub_433BE4 → formDefineTendDa → GetParentControlInfo`  
 
+![](https://github.com/XXRicardo/iot-cve/blob/main/Tenda/AC23/image/main%E8%B0%83%E7%94%A8.png)
+
+![](https://github.com/XXRicardo/iot-cve/blob/main/Tenda/AC23/image/formDefineTendDa1.png)
+
+![](https://github.com/XXRicardo/iot-cve/blob/main/Tenda/AC23/image/formDefineTendDa2.png)
+
 `s` is a buffer allocated via `malloc(0x254u)`, with a size of 0x254 bytes and initialized to all zeros. The target address is `s + 2`, meaning data copying starts from the 3rd byte of `s`, leaving 602 bytes of available space (604 - 2). `Var` is external input obtained via `websGetVar(a1, "mac", &unk_4DB6AC)` (a user-controllable "mac" parameter value). The `strcpy` function continuously copies characters from `Var` until a `\0` is encountered, without verifying if the target buffer can accommodate all data. As external input, `Var` may exceed 602 bytes in length.  
+
+![](https://github.com/XXRicardo/iot-cve/blob/main/Tenda/AC23/image/%E6%BA%A2%E5%87%BA%E7%82%B9.png)
 
 Thus, a carefully crafted payload at the interface path `/goform/GetParentControlInfo` can trigger a buffer overflow.  
 
@@ -58,9 +66,15 @@ if __name__ == "__main__":
 
 Use QEMU to emulate the `httpd` extracted from `US_AC23V1.0re_V16.03.07.52_cn_TDC01.bin` (note: this file is for the MIPS little-endian architecture; IDA must be used to modify `httpd` to adapt to the emulation environment).  
 
+![](https://github.com/XXRicardo/iot-cve/blob/main/Tenda/AC23/image/patch.png)
+
 As shown in the figure below, emulation is successful.  
 
+![](https://github.com/XXRicardo/iot-cve/blob/main/Tenda/AC23/image/payload.png)
+
 Use this script to trigger the stack overflow.  
+
+![](https://github.com/XXRicardo/iot-cve/blob/main/Tenda/AC23/image/%E8%A7%A6%E5%8F%91.png)
 
 ## Impact
 Unauthenticated remote attackers can execute a Denial of Service (DoS) attack via parameters in this endpoint.  
