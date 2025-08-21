@@ -25,6 +25,9 @@ The vulnerability was discovered by analyzing the firmware (LT500E-R42-2.3.13-20
 2. Locate the file in the extracted squashfs-root directory: squashfs-root/etc/shadow. 
 3. Use a password-cracking tool (e.g., John) to crack the MD5-crypt hash of this user: 
     - root:admin:17495:0:99999:7:::
+
+![](https://github.com/XXRicardo/iot-cve/blob/main/CUDY/image/LT500E%201.0.png)
+
 4. Attempt to log in to the device's administrative interface or other network-accessible services using the cracked password.
 
 ## Impact
