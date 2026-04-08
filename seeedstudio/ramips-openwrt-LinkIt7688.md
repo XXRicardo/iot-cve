@@ -13,7 +13,7 @@ An insecure same - password vulnerability was identified in the seeedstudio ReSp
     - Information Disclosure
     - Potential Code Execution
 + **Affected Component**: File, user authentication mechanism (/etc/shadow)
-+ **CVE ID**: Pending (CVE application in progress)
++ **CVE ID**: CVE-2025-9576
 + **Discovered by**: xxricardoxkk (xxricardoxkk@gmail.com)
 + **Firmware**: [https://wiki.seeedstudio.com/ReSpeaker_Core/#resources](https://wiki.seeedstudio.com/ReSpeaker_Core/#resources)
 
